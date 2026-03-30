@@ -1,4 +1,4 @@
-
+import pytest
 
 from src.manager import Manager
 from src.models import Parameters
@@ -51,18 +51,12 @@ def test_apartment_costs_with_optional_parameters():
 
     costs = manager.get_apartment_costs('apart-polanka')
     assert costs == 3532.0
-import pytest
-
-from src.models import Parameters
-from src.manager import Manager
 
 
 def test_get_apartment_costs_nonexistent_apartment():
     parameters = Parameters()
     manager = Manager(parameters)
-
-    with pytest.raises(KeyError):
-        manager.get_apartment_costs('non-existent-apartment', 2025, 1)
+    assert manager.get_apartment_costs('non-existent-apartment', 2025, 1) is None
 
 
 def test_get_apartment_costs_no_bills_in_month():
